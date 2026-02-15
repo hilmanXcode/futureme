@@ -15,11 +15,10 @@
         </div>
     </div>
     @endif
-
     <div class="absolute top-8 right-8 flex items-center gap-4 z-50 reveal">
         <div class="flex items-center gap-3 pr-4 border-r border-white/10">
             <div class="text-right hidden sm:block">
-                <p class="text-xs font-bold text-white">John Doe</p>
+                <p class="text-xs font-bold text-white">{{ Auth::user()->name }}</p>
             </div>
             
         </div>

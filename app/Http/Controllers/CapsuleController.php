@@ -22,7 +22,7 @@ class CapsuleController extends Controller
             'unlock_date'   => ['required', 'date']
         ]);
 
-        if($data['unlock_date'] < Carbon::now()->format('Y-m-d'))
+        if($data['unlock_date'] <= Carbon::now()->format('Y-m-d'))
             return back()->withErrors([
                 'unlock_date' => 'Tanggal pelepasan harus di masa depan.'
             ]);
@@ -47,7 +47,7 @@ class CapsuleController extends Controller
             'capsule' => DB::select('select * from capsules where id = ? LIMIT 1', [$id])
         ];
 
-        if(!$data['capsule'][0] || $data['capsule'][0]->user_id != Auth::user()->id){
+        if(count($data['capsule']) == 0 || $data['capsule'][0]->user_id != Auth::user()->id){
             abort('404', 'Not Found');
         }
 
@@ -65,9 +65,13 @@ class CapsuleController extends Controller
 
     public function delete($id)
     {
-        $data = DB::select('select id from capsules where id = ?', [$id]);
+        $data = DB::select('select id, user_id from capsules where id = ?', [$id]);
 
         if(count($data) == 0){
+            abort('404', 'Not Found');
+        }
+
+        if($data[0]->user_id != Auth::user()->id){
             abort('404', 'Not Found');
         }
 
@@ -87,7 +91,7 @@ class CapsuleController extends Controller
             'capsule' => DB::select('select * from capsules where id = ?', [$id])
         ];
         
-        if(!$data['capsule'][0] || $data['capsule'][0]->user_id != Auth::user()->id){
+        if(count($data['capsule']) == 0 || $data['capsule'][0]->user_id != Auth::user()->id){
             abort('404', 'Not Found');
         }
 

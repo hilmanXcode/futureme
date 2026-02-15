@@ -56,7 +56,7 @@
 
             <div class="mt-8 pt-8 border-t border-white/5 text-center">
                 <p class="text-slate-500 text-sm">
-                    Sudah punya akun? <a href="/login" class="text-white font-semibold hover:underline ml-2">Masuk di sini</a>
+                    Sudah punya akun? <a href="{{ route('login') }}" class="text-white font-semibold hover:underline ml-2">Masuk di sini</a>
                 </p>
             </div>
         </div>
